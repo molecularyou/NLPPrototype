@@ -29,7 +29,7 @@
   }
 
   :global(.dark) {
-    background: #121212;
+    background: #1F1D36;
     color: #f1f8ff;
   }
 

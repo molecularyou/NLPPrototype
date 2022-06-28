@@ -7,6 +7,10 @@
 
 <div id="flex-container">
   <input type="search" id="doi" name="doi" bind:value={doi} />
+  <select name="type" id="type">
+    <option value="abstract">Abstract</option>
+    <option value="paper">Paper</option>
+  </select>
   <button on:click={handleClick}> Submit </button>
 </div>
 
@@ -17,12 +21,12 @@
   }
   button {
     border-radius: 5px;
-    box-shadow: 3px 3px 0px grey;
+    box-shadow: 3px 3px 0px #3F3351;
     background-color: white;
   }
 
   button:hover {
-    background-color: orange;
+    background-color: #E9A6A6;
   }
 
   button:active {
