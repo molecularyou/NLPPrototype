@@ -3,6 +3,7 @@ const { app, BrowserWindow, dialog } = require('electron');
 const path = require('path');
 const serve = require('electron-serve');
 const loadURL = serve({ directory: 'public' });
+let {PythonShell} = require('python-shell');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -12,7 +13,20 @@ function isDev() {
     return !app.isPackaged;
 }
 
-function createWindow() {    
+// python script options
+var options = {
+    scriptPath : path.join(__dirname, '/YOUR PYTHON DIRECTORY'),
+    args : [],
+    //mode: "json"
+};
+
+function createWindow() {
+    // start python shell
+    let pyshell = new PythonShell('hello.py', options);
+    pyshell.on('message', function(message) {
+        console.log(message);
+        console.log(typeof message);
+    });  
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 800,

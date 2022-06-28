@@ -25,7 +25,8 @@
     "electron-pack": "electron-builder"
   },
   "dependencies": {
-    "electron-serve": "^1.1.0"
+    "electron-serve": "^1.1.0",
+    "python-shell": "^3.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",
@@ -40,6 +41,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "sirv-cli": "^1.0.12",
     "svelte": "^3.42.1",
+    "svelte-dark-mode": "^2.1.0",
     "wait-on": "^6.0.0"
   }
 }
