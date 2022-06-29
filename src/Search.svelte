@@ -6,7 +6,7 @@
 </script>
 
 <div id="flex-container">
-  <input type="search" id="doi" name="doi" bind:value={doi} />
+  <input type="search" id="doi" name="doi" bind:value={doi} placeholder="DOI"/>
   <select name="type" id="type">
     <option value="abstract">Abstract</option>
     <option value="paper">Paper</option>
