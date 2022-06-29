@@ -1,17 +1,25 @@
 <script>
   export let doi;
+  export let shell;
+  let disableSubmit = false;
   function handleClick() {
-    console.log('clicked');
+    disableSubmit = true;
+    shell.send(doi);
+    shell.on("message", function (message) {
+      // received a message sent from the Python script (a simple "print" statement)
+      console.log(message);
+    });
+    disableSubmit = false;
   }
 </script>
 
 <div id="flex-container">
-  <input type="search" id="doi" name="doi" bind:value={doi} placeholder="DOI"/>
+  <input type="search" id="doi" name="doi" bind:value={doi} placeholder="DOI" />
   <select name="type" id="type">
     <option value="abstract">Abstract</option>
     <option value="paper">Paper</option>
   </select>
-  <button on:click={handleClick}> Submit </button>
+  <button on:click={handleClick} disabled={disableSubmit}> Submit </button>
 </div>
 
 <style>
@@ -21,12 +29,12 @@
   }
   button {
     border-radius: 5px;
-    box-shadow: 3px 3px 0px #3F3351;
+    box-shadow: 3px 3px 0px #3f3351;
     background-color: white;
   }
 
   button:hover {
-    background-color: #E9A6A6;
+    background-color: #e9a6a6;
   }
 
   button:active {

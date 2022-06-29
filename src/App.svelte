@@ -1,5 +1,5 @@
 <script>
-  export let name;
+  export let shell;
   let currentDoi = "";
   import Search from "./Search.svelte";
   import DarkMode from "svelte-dark-mode";
@@ -14,7 +14,7 @@
 <main>
   <DarkMode bind:theme />
 
-  <Search doi={currentDoi} />
+  <Search doi={currentDoi} shell={shell}/>
   <p>
     Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
     how to build Svelte apps.
