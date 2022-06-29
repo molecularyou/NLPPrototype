@@ -5,10 +5,6 @@
   function handleClick() {
     disableSubmit = true;
     shell.send(doi);
-    shell.on("message", function (message) {
-      // received a message sent from the Python script (a simple "print" statement)
-      console.log(message);
-    });
     disableSubmit = false;
   }
 </script>
