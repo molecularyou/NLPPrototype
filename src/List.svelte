@@ -3,5 +3,5 @@
 </script>
 
 {#each items as item}
-	<svelte:component this={item.component} value={item.value} />
+	<svelte:component this={item.component} value={item.value} size={item.size}/>
 {/each}

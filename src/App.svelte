@@ -10,6 +10,7 @@
   $: items = requestResponse
     ? requestResponse.map((response) => ({
         value: response.input,
+        size: response.size,
         component: ListItem,
       }))
     : [];
