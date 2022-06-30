@@ -1,21 +1,16 @@
 <script>
-  export let doi;
-  export let shell;
-  let disableSubmit = false;
-  function handleClick() {
-    disableSubmit = true;
-    shell.send(doi);
-    disableSubmit = false;
-  }
+  export let onChangeDOI;
+  export let onClick;
+  export let disableSubmit;
 </script>
 
 <div id="flex-container">
-  <input type="search" id="doi" name="doi" bind:value={doi} placeholder="DOI" />
+  <input type="search" id="doi" name="doi" on:change={(e)=> onChangeDOI(e.target.value)} placeholder="DOI" />
   <select name="type" id="type">
     <option value="abstract">Abstract</option>
     <option value="paper">Paper</option>
   </select>
-  <button on:click={handleClick} disabled={disableSubmit}> Submit </button>
+  <button on:click={onClick} disabled={disableSubmit}> Submit </button>
 </div>
 
 <style>

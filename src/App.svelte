@@ -1,24 +1,45 @@
 <script>
-  export let shell;
-  let currentDoi = "";
   import Search from "./Search.svelte";
   import DarkMode from "svelte-dark-mode";
-
+  import List from "./List.svelte";
+  import ListItem from "./ListItem.svelte";
+  let currentDoi = "";
+  let requestResponse = [];
+  let items = [];
+  let disableSubmit = false;
+  $: items = requestResponse
+    ? requestResponse.map((response) => ({
+        value: response.input,
+        component: ListItem,
+      }))
+    : [];
+  function handleChangeDOI(value) {
+    currentDoi = value;
+  }
+  async function handleClick() {
+    disableSubmit = true;
+    await fetch(`http://127.0.0.1:8080/?doi=${currentDoi}`, { method: "GET" })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        requestResponse = data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    disableSubmit = false;
+  }
   let theme;
 
-  $: switchTheme = theme === "dark" ? "light" : "dark";
+  $: theme === "dark" ? "light" : "dark";
   $: document.body.className = theme;
-
 </script>
 
 <main>
   <DarkMode bind:theme />
-
-  <Search doi={currentDoi} shell={shell}/>
-  <p>
-    Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
-    how to build Svelte apps.
-  </p>
+  <Search onChangeDOI={handleChangeDOI} onClick={handleClick} {disableSubmit} />
+  <List {items} />
 </main>
 
 <style>
@@ -29,7 +50,7 @@
   }
 
   :global(.dark) {
-    background: #1F1D36;
+    background: #1f1d36;
     color: #f1f8ff;
   }
 
