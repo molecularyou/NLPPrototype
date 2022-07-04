@@ -68,7 +68,7 @@ def entrance():
         potential_control_groups = get_control_groups(nlp, text)
         potential_healthy_control_groups = get_healthy_control_groups(nlp, text)
         # results.append(f'<b>input</b><br/>{text}<br/><b>possible sample sizes:</b><br/>{potential_n}<br/><b>possible sexes:</b><br/>{set(potential_sexes)}<br/><b>possible ages:</b><br/>{set(potential_ages)}<br/><b>possible fluids:</b><br/>{set(potential_fluids)}<br/><b>possible omics:</b><br/>{set(potential_omics)}<br/><b>possible control group:</b><br/>{potential_control_groups}<br/><b>possible healthy control group:</b><br/>{potential_healthy_control_groups}')
-        results.append({'input': f'{text}', 'size': [f'{item}' for item in potential_n]})
+        results.append({'input': [t.text for t in text], 'size': [{'start':item.start, 'end': item.end} for item in potential_n]})
     if (len(abstract_dict.items()) > 0):
         response = jsonify(results)
         response.headers.add("Access-Control-Allow-Origin", "*")

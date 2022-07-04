@@ -15,6 +15,6 @@
 </style>
 
 <div class='card'>
-	<p>{value}</p>
-	<p>{size}</p>
+	<p>{value.join(' ')}</p>
+	<p>{size.map((pos)=> (value.slice(pos.start, pos.end).join(' ')))}</p>
 </div>
