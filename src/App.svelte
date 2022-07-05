@@ -14,6 +14,7 @@
         component: ListItem,
       }))
     : [];
+  $: selectedWords = items.map((item)=> item.selected);
   function handleChangeDOI(value) {
     currentDoi = value;
   }
