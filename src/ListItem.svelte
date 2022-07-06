@@ -23,7 +23,7 @@
       modifiedValue = [...value];
       selected.forEach((item) => {
         modifiedValue[item.start] = '<div style="color:red;"><strong>' + modifiedValue[item.start];
-        modifiedValue[item.end] = modifiedValue[item.end] + '</strong></div>';
+        modifiedValue[item.end - 1] = modifiedValue[item.end -1] + '</strong></div>';
       });
     }}
   >
