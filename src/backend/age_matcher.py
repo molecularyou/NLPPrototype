@@ -11,6 +11,4 @@ def get_age(nlp, text):
     potential_ages = []
     for match_id, start, end in ages:
         potential_ages.append(text[start:end])
-    if len(potential_ages) == 0:
-        potential_ages.append("adult")
     return potential_ages

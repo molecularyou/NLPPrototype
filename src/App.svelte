@@ -9,8 +9,7 @@
   let disableSubmit = false;
   $: items = requestResponse
     ? requestResponse.map((response) => ({
-        value: response.input,
-        size: response.size,
+        response: response,
         component: ListItem,
       }))
     : [];
@@ -20,6 +19,7 @@
   }
   async function handleClick() {
     disableSubmit = true;
+    items = [];
     await fetch(`http://127.0.0.1:8080/?doi=${currentDoi}`, { method: "GET" })
       .then(function (response) {
         return response.json();

@@ -1,40 +1,143 @@
 <script>
   export let value;
-  export let size;
-  let modifiedValue = [...value];
-  let selected = [];
+  let modifiedValue = [...value.input];
+  let selected_fluid = [];
+  let selected_size = [];
+  let selected_age = [];
+  let selected_sex = [];
+
   $: text = modifiedValue.join(" ");
-  const sample_sizes = size.map((pos) => ({
-    text: value.slice(pos.start, pos.end).join(" "),
+  const sample_sizes = value.size.map((pos) => ({
+    text: value.input.slice(pos.start, pos.end).join(" "),
     start: pos.start,
     end: pos.end,
   }));
+  const fluids = value.fluids.map((pos) => ({
+    text: value.input.slice(pos.start, pos.end).join(" "),
+    start: pos.start,
+    end: pos.end,
+  }));
+  const sexes = value.sexes.map((pos) => ({
+    text: value.input.slice(pos.start, pos.end).join(" "),
+    start: pos.start,
+    end: pos.end,
+  }));
+  const ages = value.ages.map((pos) => ({
+    text: value.input.slice(pos.start, pos.end).join(" "),
+    start: pos.start,
+    end: pos.end,
+  }));
+  console.log(value.ages);
 </script>
 
 <div class="card">
   <p>{@html text}</p>
-  <label for="samplesize">Sample Sizes:</label>
-  <select
-    name="samplesize"
-    id="samplesize"
-    multiple
-    bind:value={selected}
-    on:change={() => {
-      modifiedValue = [...value];
-      selected.forEach((item) => {
-        modifiedValue[item.start] = '<div style="color:red;"><strong>' + modifiedValue[item.start];
-        modifiedValue[item.end - 1] = modifiedValue[item.end -1] + '</strong></div>';
-      });
-    }}
-  >
-    {#each sample_sizes as sample, index (sample.start)}
-      <option id={index} value={{ start: sample.start, end: sample.end }}>
-        {sample.text}
-      </option>
-    {:else}
-      Nothing
-    {/each}
-  </select>
+  <div class="grid-container">
+    <div class="grid-item">
+      <label for="samplesize">Sample Sizes:</label>
+      <select
+        name="samplesize"
+        id="samplesize"
+        multiple
+        bind:value={selected_size}
+        on:change={() => {
+          modifiedValue = [...value.input];
+          selected_size.forEach((item) => {
+            modifiedValue[item.start] =
+              '<div style="color:red;"><strong>' + modifiedValue[item.start];
+            modifiedValue[item.end - 1] =
+              modifiedValue[item.end - 1] + "</strong></div>";
+          });
+        }}
+      >
+        {#each sample_sizes as sample, index (sample.start)}
+          <option id={index} value={{ start: sample.start, end: sample.end }}>
+            {sample.text}
+          </option>
+        {:else}
+          Nothing
+        {/each}
+      </select>
+    </div>
+    <div class="grid-item">
+      <label for="fluids">Possible Fluids:</label>
+      <select
+        name="fluids"
+        id="fluids"
+        multiple
+        bind:value={selected_fluid}
+        on:change={() => {
+          modifiedValue = [...value.input];
+          selected_fluid.forEach((item) => {
+            modifiedValue[item.start] =
+              '<div style="color:red;"><strong>' + modifiedValue[item.start];
+            modifiedValue[item.end - 1] =
+              modifiedValue[item.end - 1] + "</strong></div>";
+          });
+        }}
+      >
+        {#each fluids as sample, index (sample.start)}
+          <option id={index} value={{ start: sample.start, end: sample.end }}>
+            {sample.text}
+          </option>
+        {:else}
+          Nothing
+        {/each}
+      </select>
+    </div>
+    <div class="grid-item">
+      <label for="sexes">Possible Sexes:</label>
+      <select
+        name="sexes"
+        id="sexes"
+        multiple
+        bind:value={selected_sex}
+        on:change={() => {
+          modifiedValue = [...value.input];
+          selected_sex.forEach((item) => {
+            modifiedValue[item.start] =
+              '<div style="color:red;"><strong>' + modifiedValue[item.start];
+            modifiedValue[item.end - 1] =
+              modifiedValue[item.end - 1] + "</strong></div>";
+          });
+        }}
+      >
+        {#each sexes as sample, index (sample.start)}
+          <option id={index} value={{ start: sample.start, end: sample.end }}>
+            {sample.text}
+          </option>
+        {:else}
+          Nothing
+        {/each}
+      </select>
+    </div>
+    <div class="grid-item">
+      <label for="ages">Possible Ages:</label>
+      <select
+        name="ages"
+        id="ages"
+        multiple
+        bind:value={selected_age}
+        on:change={() => {
+          modifiedValue = [...value.input];
+          selected_age.forEach((item) => {
+            modifiedValue[item.start] =
+              '<div style="color:red;"><strong>' + modifiedValue[item.start];
+            modifiedValue[item.end - 1] =
+              modifiedValue[item.end - 1] + "</strong></div>";
+          });
+        }}
+      >
+        {#each ages as sample, index (sample.start)}
+          <option id={index} value={{ start: sample.start, end: sample.end }}>
+            {sample.text}
+          </option>
+        {:else}
+          Nothing
+        {/each}
+      </select>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -45,5 +148,14 @@
     border-radius: 4px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     min-height: 5em;
+  }
+  .grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+  }
+  .grid-item {
+    text-align: center;
+    flex: 1 1 150px;
   }
 </style>
