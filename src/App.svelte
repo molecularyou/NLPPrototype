@@ -3,6 +3,7 @@
   import DarkMode from "svelte-dark-mode";
   import List from "./List.svelte";
   import ListItem from "./ListItem.svelte";
+  import CSV from "./CSV.svelte";
   let currentDoi = "";
   let requestResponse = [];
   let items = [];
@@ -11,9 +12,14 @@
     ? requestResponse.map((response) => ({
         response: response,
         component: ListItem,
+        selected: {
+          size: [],
+          fluid: [],
+          age: [],
+          sex: [],
+        },
       }))
     : [];
-  $: selectedWords = items.map((item)=> item.selected);
   function handleChangeDOI(value) {
     currentDoi = value;
   }
@@ -41,6 +47,7 @@
 <main>
   <DarkMode bind:theme />
   <Search onChangeDOI={handleChangeDOI} onClick={handleClick} {disableSubmit} />
+  <CSV {items} />
   <List {items} />
 </main>
 

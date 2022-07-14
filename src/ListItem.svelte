@@ -1,10 +1,7 @@
 <script>
   export let value;
+  export let selected;
   let modifiedValue = [...value.input];
-  let selected_fluid = [];
-  let selected_size = [];
-  let selected_age = [];
-  let selected_sex = [];
 
   $: text = modifiedValue.join(" ");
   const sample_sizes = value.size.map((pos) => ({
@@ -27,7 +24,6 @@
     start: pos.start,
     end: pos.end,
   }));
-  console.log(value.ages);
 </script>
 
 <div class="card">
@@ -39,10 +35,10 @@
         name="samplesize"
         id="samplesize"
         multiple
-        bind:value={selected_size}
+        bind:value={selected.size}
         on:change={() => {
           modifiedValue = [...value.input];
-          selected_size.forEach((item) => {
+          selected.size.forEach((item) => {
             modifiedValue[item.start] =
               '<div style="color:red;"><strong>' + modifiedValue[item.start];
             modifiedValue[item.end - 1] =
@@ -65,10 +61,10 @@
         name="fluids"
         id="fluids"
         multiple
-        bind:value={selected_fluid}
+        bind:value={selected.fluid}
         on:change={() => {
           modifiedValue = [...value.input];
-          selected_fluid.forEach((item) => {
+          selected.fluid.forEach((item) => {
             modifiedValue[item.start] =
               '<div style="color:red;"><strong>' + modifiedValue[item.start];
             modifiedValue[item.end - 1] =
@@ -91,10 +87,10 @@
         name="sexes"
         id="sexes"
         multiple
-        bind:value={selected_sex}
+        bind:value={selected.sex}
         on:change={() => {
           modifiedValue = [...value.input];
-          selected_sex.forEach((item) => {
+          selected.sex.forEach((item) => {
             modifiedValue[item.start] =
               '<div style="color:red;"><strong>' + modifiedValue[item.start];
             modifiedValue[item.end - 1] =
@@ -117,10 +113,10 @@
         name="ages"
         id="ages"
         multiple
-        bind:value={selected_age}
+        bind:value={selected.age}
         on:change={() => {
           modifiedValue = [...value.input];
-          selected_age.forEach((item) => {
+          selected.age.forEach((item) => {
             modifiedValue[item.start] =
               '<div style="color:red;"><strong>' + modifiedValue[item.start];
             modifiedValue[item.end - 1] =

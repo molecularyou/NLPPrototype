@@ -5,7 +5,13 @@
 </script>
 
 <div id="flex-container">
-  <input type="search" id="doi" name="doi" on:change={(e)=> onChangeDOI(e.target.value)} placeholder="DOI" />
+  <input
+    type="search"
+    id="doi"
+    name="doi"
+    on:change={(e) => onChangeDOI(e.target.value)}
+    placeholder="DOI"
+  />
   <select name="type" id="type">
     <option value="abstract">Abstract</option>
     <option value="paper">Paper</option>
