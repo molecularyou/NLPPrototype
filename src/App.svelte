@@ -12,6 +12,7 @@
     ? requestResponse.map((response) => ({
         response: response,
         component: ListItem,
+        doi: response.doi,
         selected: {
           size: [],
           fluid: [],

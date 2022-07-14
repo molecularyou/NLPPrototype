@@ -5,24 +5,28 @@
 <button
   disabled={items.length === 0}
   on:click={() => {
-    let headers = [Object.keys(items[0].selected)];
+    let headers = [["doi"].concat(Object.keys(items[0].selected))];
     let rows = items.map((item) => {
-      return Object.values(item.selected).map((selected) => {
-        if (selected.length > 0) {
-          return (
-            '"' +
-            selected
-              .map((pos) =>
-                item.response.input.slice(pos.start, pos.end).join(" ")
-              )
-              .join("\n") +
-            '"'
-          );
-        } else {
-          return [];
-        }
-      });
+      return [[String(item.doi)].concat(
+        Object.values(item.selected).map((selected) => {
+          if (selected.length > 0) {
+            return (
+              '"' +
+              selected
+                .map((pos) =>
+                  item.response.input.slice(pos.start, pos.end).join(" ")
+                )
+                .join("\n") +
+              '"'
+            );
+          } else {
+            return '';
+          }
+        })
+      )];
     });
+    console.log(headers);
+    console.log(rows.map((e) => console.log(e)));
     let csvContent =
       "data:text/csv;charset=utf-8," +
       headers
