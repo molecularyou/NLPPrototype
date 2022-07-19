@@ -7,11 +7,13 @@ from age_matcher import get_age
 from control_group_matcher import get_control_groups, get_healthy_control_groups
 from fluid_matcher import get_fluids
 from n_matcher import get_n
-from omic_matcher import get_omics
+from omic_matcher import get_omics, load_metabolites
 from sex_matcher import get_sexes
 
 nlp = spacy.load("en_core_web_trf")
 email = ''
+metabolite_list = []
+
 app = Flask(__name__)
 
 @app.route('/paper')
@@ -63,7 +65,7 @@ def entrance():
         potential_n = get_n(nlp, text)
         potential_sexes = get_sexes(nlp, text)
         potential_fluids = get_fluids(nlp, text)
-        potential_omics = get_omics(nlp, text)
+        potential_omics = get_omics(nlp, text, metabolite_list)
         potential_ages = get_age(nlp, text)
         potential_control_groups = get_control_groups(nlp, text)
         potential_healthy_control_groups = get_healthy_control_groups(nlp, text)
@@ -77,5 +79,6 @@ def entrance():
 
 
 if __name__ == '__main__':
+    metabolite_list = load_metabolites('metabolites.csv')
     print('loading')
     app.run(port=8080)
