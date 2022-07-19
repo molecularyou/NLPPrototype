@@ -25,8 +25,6 @@
         })
       )];
     });
-    console.log(headers);
-    console.log(rows.map((e) => console.log(e)));
     let csvContent =
       "data:text/csv;charset=utf-8," +
       headers
