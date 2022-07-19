@@ -18,6 +18,10 @@
           fluid: [],
           age: [],
           sex: [],
+          omic: [],
+          controlGroup: [],
+          healthyControlGroup: [],
+          analyte: [],
         },
       }))
     : [];

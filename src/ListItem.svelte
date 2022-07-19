@@ -24,6 +24,26 @@
     start: pos.start,
     end: pos.end,
   }));
+  const omics = value.omics.map((pos) => ({
+    text: value.input.slice(pos.start, pos.end).join(" "),
+    start: pos.start,
+    end: pos.end,
+  }));
+  const controlGroups = value.controlGroups.map((pos) => ({
+    text: value.input.slice(pos.start, pos.end).join(" "),
+    start: pos.start,
+    end: pos.end,
+  }));
+  const healthyControlGroups = value.healthyControlGroups.map((pos) => ({
+    text: value.input.slice(pos.start, pos.end).join(" "),
+    start: pos.start,
+    end: pos.end,
+  }));
+  const analytes = value.analytes.map((pos) => ({
+    text: value.input.slice(pos.start, pos.end).join(" "),
+    start: pos.start,
+    end: pos.end,
+  }));
 </script>
 
 <div class="card">
@@ -125,6 +145,110 @@
         }}
       >
         {#each ages as sample, index (sample.start)}
+          <option id={index} value={{ start: sample.start, end: sample.end }}>
+            {sample.text}
+          </option>
+        {:else}
+          Nothing
+        {/each}
+      </select>
+    </div>
+    <div class="grid-item">
+      <label for="omics">Possible Omics:</label>
+      <select
+        name="omics"
+        id="omics"
+        multiple
+        bind:value={selected.omic}
+        on:change={() => {
+          modifiedValue = [...value.input];
+          selected.omic.forEach((item) => {
+            modifiedValue[item.start] =
+              '<div style="color:red;"><strong>' + modifiedValue[item.start];
+            modifiedValue[item.end - 1] =
+              modifiedValue[item.end - 1] + "</strong></div>";
+          });
+        }}
+      >
+        {#each omics as sample, index (sample.start)}
+          <option id={index} value={{ start: sample.start, end: sample.end }}>
+            {sample.text}
+          </option>
+        {:else}
+          Nothing
+        {/each}
+      </select>
+    </div>
+    <div class="grid-item">
+      <label for="controlGroups">Possible Control Groups:</label>
+      <select
+        name="controlGroups"
+        id="controlGroups"
+        multiple
+        bind:value={selected.controlGroup}
+        on:change={() => {
+          modifiedValue = [...value.input];
+          selected.controlGroup.forEach((item) => {
+            modifiedValue[item.start] =
+              '<div style="color:red;"><strong>' + modifiedValue[item.start];
+            modifiedValue[item.end - 1] =
+              modifiedValue[item.end - 1] + "</strong></div>";
+          });
+        }}
+      >
+        {#each controlGroups as sample, index (sample.start)}
+          <option id={index} value={{ start: sample.start, end: sample.end }}>
+            {sample.text}
+          </option>
+        {:else}
+          Nothing
+        {/each}
+      </select>
+    </div>
+    <div class="grid-item">
+      <label for="healthyControlGroups">Possible Healthy Control Groups:</label>
+      <select
+        name="healthyControlGroups"
+        id="healthyControlGroups"
+        multiple
+        bind:value={selected.healthyControlGroup}
+        on:change={() => {
+          modifiedValue = [...value.input];
+          selected.healthyControlGroup.forEach((item) => {
+            modifiedValue[item.start] =
+              '<div style="color:red;"><strong>' + modifiedValue[item.start];
+            modifiedValue[item.end - 1] =
+              modifiedValue[item.end - 1] + "</strong></div>";
+          });
+        }}
+      >
+        {#each healthyControlGroups as sample, index (sample.start)}
+          <option id={index} value={{ start: sample.start, end: sample.end }}>
+            {sample.text}
+          </option>
+        {:else}
+          Nothing
+        {/each}
+      </select>
+    </div>
+    <div class="grid-item">
+      <label for="analytes">Possible Analytes:</label>
+      <select
+        name="analytes"
+        id="analytes"
+        multiple
+        bind:value={selected.analyte}
+        on:change={() => {
+          modifiedValue = [...value.input];
+          selected.analyte.forEach((item) => {
+            modifiedValue[item.start] =
+              '<div style="color:red;"><strong>' + modifiedValue[item.start];
+            modifiedValue[item.end - 1] =
+              modifiedValue[item.end - 1] + "</strong></div>";
+          });
+        }}
+      >
+        {#each analytes as sample, index (sample.start)}
           <option id={index} value={{ start: sample.start, end: sample.end }}>
             {sample.text}
           </option>
