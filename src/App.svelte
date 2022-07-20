@@ -22,6 +22,7 @@
           controlGroup: [],
           healthyControlGroup: [],
           analyte: [],
+          umls: [],
         },
       }))
     : [];

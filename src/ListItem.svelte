@@ -44,6 +44,11 @@
     start: pos.start,
     end: pos.end,
   }));
+  const umlsMatches = value.umls.map((pos) => ({
+    text: pos.text,
+    start: pos.start,
+    end: pos.end,
+  }));
 </script>
 
 <div class="card">
@@ -249,6 +254,23 @@
         }}
       >
         {#each analytes as sample, index (sample.start)}
+          <option id={index} value={{ start: sample.start, end: sample.end }}>
+            {sample.text}
+          </option>
+        {:else}
+          Nothing
+        {/each}
+      </select>
+    </div>
+    <div class="grid-item">
+      <label for="umlsMatches">Possible UMLS:</label>
+      <select
+        name="umlsMatches"
+        id="umlsMatches"
+        multiple
+        bind:value={selected.umls}
+      >
+        {#each umlsMatches as sample, index (sample.start)}
           <option id={index} value={{ start: sample.start, end: sample.end }}>
             {sample.text}
           </option>

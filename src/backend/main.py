@@ -2,9 +2,7 @@ from flask import Flask, jsonify
 from flask import request
 from Bio import Entrez
 from spacy.matcher import Matcher
-from spacy.tokenizer import Tokenizer
 import spacy
-from spacy.util import compile_infix_regex
 from age_matcher import get_age
 from analyte_matcher import load_analytes
 from analyte_matcher import get_analytes
@@ -17,22 +15,7 @@ from omic_matcher import get_omics, load_metabolites
 from sex_matcher import get_sexes
 
 nlp = spacy.load("en_core_web_trf")
-
-# def custom_tokenizer(nlp):
-#     inf = list(nlp.Defaults.infixes)               # Default infixes
-#     inf.remove(r"(?<=[0-9])[+\-\*^](?=[0-9-])")    # Remove the generic op between numbers or between a number and a -
-#     inf = tuple(inf)                               # Convert inf to tuple
-#     infixes = inf + tuple([r"(?<=[0-9])[+*^](?=[0-9-])", r"(?<=[0-9])-(?=-)"])  # Add the removed rule after subtracting (?<=[0-9])-(?=[0-9]) pattern
-#     infixes = [x for x in infixes if '-|–|—|--|---|——|~' not in x] # Remove - between letters rule
-#     infix_re = compile_infix_regex(infixes)
-
-#     return Tokenizer(nlp.vocab, prefix_search=nlp.tokenizer.prefix_search,
-#                                 suffix_search=nlp.tokenizer.suffix_search,
-#                                 infix_finditer=infix_re.finditer,
-#                                 token_match=nlp.tokenizer.token_match,
-#                                 rules=nlp.Defaults.tokenizer_exceptions)
-# nlp.tokenizer = custom_tokenizer(nlp)
-
+test = spacy.load("en_ner_bionlp13cg_md")
 
 email = ''
 metabolite_list = load_metabolites('metabolites.csv')
@@ -85,6 +68,7 @@ def entrance():
     results = []
     for key, abstract in abstract_dict.items():
         text = nlp(abstract)
+        umlstext = test(abstract)
         potential_n = get_n(nlp, text)
         potential_sexes = get_sexes(nlp, text)
         potential_fluids = get_fluids(nlp, text)
@@ -101,7 +85,8 @@ def entrance():
             'omics':[{'start':item.start, 'end': item.end} for item in potential_omics],
             'controlGroups': [{'start':item.start, 'end': item.end} for item in potential_control_groups],
             'healthyControlGroups': [{'start':item.start, 'end': item.end} for item in potential_healthy_control_groups],
-            'analytes': [{'start':item.start, 'end': item.end} for item in potential_analytes]
+            'analytes': [{'start':item.start, 'end': item.end} for item in potential_analytes],
+            'umls': [{'start': item.start, 'end': item.end, 'label': item.label_, 'text': item.text} for item in umlstext.ents],
             })
     if (len(abstract_dict.items()) > 0):
         response = jsonify(results)
