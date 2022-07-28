@@ -15,14 +15,6 @@ function isDev() {
 
 function createWindow() {
     // Create the browser window.
-    let pyshell = new PythonShell("./src/backend/main.py", { mode: "text" });
-    pyshell.on("message", function (message) {
-        // received a message sent from the Python script (a simple "print" statement)
-        console.log(message);
-    });
-    pyshell.on('stderr', function (stderr) {
-        console.log(stderr);
-    });
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
@@ -53,16 +45,16 @@ function createWindow() {
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
+        // // end the input stream and allow the process to exit
+        // pyshell.end(function (err, code, signal) {
+        //     if (err) throw err;
+        //     console.log('The exit code was: ' + code);
+        //     console.log('The exit signal was: ' + signal);
+        //     console.log('finished');
+        // });
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
-        // // end the input stream and allow the process to exit
-        pyshell.end(function (err, code, signal) {
-            if (err) throw err;
-            console.log('The exit code was: ' + code);
-            console.log('The exit signal was: ' + signal);
-            console.log('finished');
-        });
         mainWindow = null
     });
 

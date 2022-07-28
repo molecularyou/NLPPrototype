@@ -6,6 +6,12 @@
   "build": {
     "icon": "public/favicon.png",
     "productName": "Svelte and Electron App",
+    "extraResources": [
+      "./extraResources/**"
+    ],
+    "asarUnpack": [
+      "./extraResources/**"
+    ],
     "files": [
       "public/**/*",
       "main.js",
