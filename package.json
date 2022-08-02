@@ -1,11 +1,13 @@
 {
-  "name": "create-svelte-electron-app",
-  "version": "1.1.0",
+  "name": "paper-extraction",
+  "version": "0.1.0",
+  "author": "matthew mong",
+  "description": "electron app for pulling key data from pubmed IDs",
   "private": true,
   "main": "main.js",
   "build": {
     "icon": "public/favicon.png",
-    "productName": "Svelte and Electron App",
+    "productName": "Paper Extraction",
     "extraResources": [
       "./extraResources/**"
     ],
