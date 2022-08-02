@@ -47,8 +47,8 @@
   const umlsMatches = value.umls.map((pos) => ({
     text: pos.text,
     start: pos.start,
-    end: pos.end,
   }));
+  selected.umls = umlsMatches.map((item)=> (item.text));
 </script>
 
 <div class="card">
@@ -271,7 +271,7 @@
         bind:value={selected.umls}
       >
         {#each umlsMatches as sample, index (sample.start)}
-          <option id={index} value={{ start: sample.start, end: sample.end }}>
+          <option selected id={index} value={sample.text}>
             {sample.text}
           </option>
         {:else}
