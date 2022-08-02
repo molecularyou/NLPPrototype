@@ -38,6 +38,7 @@ def papers():
     results = []
     text = nlp(records.decode("utf-8").replace('\n', ' '))
     potential_n = get_n(nlp, text)
+    umlstext = test(text)
     potential_sexes = get_sexes(nlp, text)
     potential_fluids = get_fluids(nlp, text)
     potential_omics = get_omics(nlp, text)
@@ -45,7 +46,18 @@ def papers():
     potential_control_groups = get_control_groups(nlp, text)
     potential_healthy_control_groups = get_healthy_control_groups(nlp, text)
     potential_analytes = get_analytes(nlp, text, analyte_list)
-    results.append(f'<b>input</b><br/>{text}<br/><b>possible sample sizes:</b><br/>{potential_n}<br/><b>possible sexes:</b><br/>{set(potential_sexes)}<br/><b>possible ages:</b><br/>{set(potential_ages)}<br/><b>possible fluids:</b><br/>{set(potential_fluids)}<br/><b>possible omics:</b><br/>{set(potential_omics)}<br/><b>possible control group:</b><br/>{potential_control_groups}<br/><b>possible healthy control group:</b><br/>{potential_healthy_control_groups}')
+    results.append({
+            'doi': doi,'input': [t.text for t in text], 
+            'size': [{'start':item.start, 'end': item.end} for item in potential_n], 
+            'fluids':[{'start':item.start, 'end': item.end} for item in potential_fluids], 
+            'sexes':[{'start':item.start, 'end': item.end} for item in potential_sexes], 
+            'ages':[{'start':item.start, 'end': item.end} for item in potential_ages],
+            'omics':[{'start':item.start, 'end': item.end} for item in potential_omics],
+            'controlGroups': [{'start':item.start, 'end': item.end} for item in potential_control_groups],
+            'healthyControlGroups': [{'start':item.start, 'end': item.end} for item in potential_healthy_control_groups],
+            'analytes': [{'start':item.start, 'end': item.end} for item in potential_analytes],
+            'umls': [{'start': item.start, 'end': item.end, 'label': item.label_, 'text': item.text} for item in umlstext.ents],
+    })
     return '<br/>'.join(results)
 
 @app.route("/")
@@ -77,8 +89,9 @@ def entrance():
         potential_control_groups = get_control_groups(nlp, text)
         potential_healthy_control_groups = get_healthy_control_groups(nlp, text)
         potential_analytes = get_analytes(text, anaylte_matcher)
-        results.append({'doi': key,'input': [t.text for t in text], 'size': [{
-            'start':item.start, 'end': item.end} for item in potential_n], 
+        results.append({
+            'doi': key,'input': [t.text for t in text], 
+            'size': [{'start':item.start, 'end': item.end} for item in potential_n], 
             'fluids':[{'start':item.start, 'end': item.end} for item in potential_fluids], 
             'sexes':[{'start':item.start, 'end': item.end} for item in potential_sexes], 
             'ages':[{'start':item.start, 'end': item.end} for item in potential_ages],
