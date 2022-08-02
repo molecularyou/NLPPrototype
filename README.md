@@ -22,10 +22,17 @@ This project is an attempt to use Spacy to extract key information from papers h
 **Note:** If you wish to use npm over yarn then modify `package.json` by replacing `yarn` with `npm` in `electron-dev` and `preelectron-pack` scripts.
 But I strongly recommend using <em>yarn</em> as it is a better choice when compared to <em>npm</em>.
 
-**prereqs:** Python 3.x (tested on 3.10), flask, spacy, 
+**prereqs:** Python 3.x (tested on 3.10), flask, spacy, biopython
 
 ```bash
-# Install dependencies
+# install python dependencies
+$ pip install Flask
+$ pip install biopython
+$ pip install spacy
+$ python -m spacy download en_core_web_trf
+$ pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.0/en_ner_bionlp13cg_md-0.5.0.tar.gz
+
+# Install electron dependencies
 $ yarn # or npm install
 
 # Run your app
