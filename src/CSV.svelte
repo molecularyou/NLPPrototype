@@ -8,9 +8,10 @@
     let headers = [["doi"].concat(Object.keys(items[0].selected))];
     let rows = items.map((item) => {
       return [[String(item.doi)].concat(
-        Object.values(item.selected).map((selected) => {
+        Object.entries(item.selected).map(([key, selected]) => {
           if (selected.length > 0) {
-            return (
+            if (key !== 'umls'){
+              return (
               '"' +
               selected
                 .map((pos) =>
@@ -19,6 +20,13 @@
                 .join("\n") +
               '"'
             );
+            } else {
+              return (
+              '"' +
+              selected.join("\n") +
+              '"'
+              );
+            }
           } else {
             return '';
           }
