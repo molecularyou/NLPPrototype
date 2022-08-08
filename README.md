@@ -32,6 +32,8 @@ $ pip install spacy
 $ pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.0/en_ner_bionlp13cg_md-0.5.0.tar.gz
 $ python -m spacy download en_core_web_trf
 
+# if you do not have yarn and node install node at https://nodejs.org/en/download/ and yarn at https://classic.yarnpkg.com/lang/en/docs/install/
+
 # Install electron dependencies
 $ yarn # or npm install
 
