@@ -31,7 +31,7 @@ function createWindow() {
     // This block of code is intended for development purpose only.
     // Delete this entire block of code when you are ready to package the application.
     if (isDev()) {
-        mainWindow.loadURL('http://localhost:5000/');
+        mainWindow.loadURL('http://localhost:5555/');
     } else {
         loadURL(mainWindow);
     }
