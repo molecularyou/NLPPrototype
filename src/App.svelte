@@ -32,7 +32,7 @@
   async function handleClick() {
     disableSubmit = true;
     items = [];
-    await fetch(`http://127.0.0.1:8080/?doi=${currentDoi}`, { method: "GET" })
+    await fetch(`http://127.0.0.1:9090/?doi=${encodeURIComponent(currentDoi)}`, { method: "GET" })
       .then(function (response) {
         return response.json();
       })
