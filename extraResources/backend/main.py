@@ -29,7 +29,11 @@ app = Flask(__name__)
 def papers():
     doi = request.args.get('doi')
     Entrez.email = email
-    handle = Entrez.elink(dbfrom="pubmed", db="pmc", linkname="pubmed_pmc", id=doi, retmode="xml")
+    handle = Entrez.esearch(db="pubmed", term=doi, retmax=100)
+    record = Entrez.read(handle)
+    id = record['IdList']
+    handle.close()
+    handle = Entrez.elink(dbfrom="pubmed", db="pmc", linkname="pubmed_pmc", id=''.join(id), retmode="xml")
     id_return = Entrez.read(handle)
     handle.close()
     handle = Entrez.efetch(db="pmc", id=id_return[0]['LinkSetDb'][0]['Link'][0]['Id']) 
@@ -66,7 +70,11 @@ def entrance():
     abstract_dict = {}
     without_abstract = []
     Entrez.email = email
-    handle = Entrez.efetch(db="pubmed", id=','.join(doi),rettype="xml", retmode="text") 
+    handle = Entrez.esearch(db="pubmed", term=doi, retmax=100)
+    record = Entrez.read(handle)
+    ids = record['IdList']
+    handle.close()
+    handle = Entrez.efetch(db="pubmed", id=','.join(ids),rettype="xml", retmode="text")
     records = Entrez.read(handle)
     for pubmed_article in records['PubmedArticle']:
         pmid = int(str(pubmed_article['MedlineCitation']['PMID']))
