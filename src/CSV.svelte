@@ -5,7 +5,7 @@
 <button
   disabled={items.length === 0}
   on:click={() => {
-    let headers = [["doi"].concat(Object.keys(items[0].selected))];
+    let headers = [["PMID"].concat(Object.keys(items[0].selected))];
     let rows = items.map((item) => {
       return [[String(item.doi)].concat(
         Object.entries(item.selected).map(([key, selected]) => {
