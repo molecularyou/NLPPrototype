@@ -66,11 +66,12 @@ def papers():
 
 @app.route("/")
 def entrance():
-    doi = request.args.getlist('doi')
+    doi = request.args.get('doi')
+    dois = doi.split(',')
     abstract_dict = {}
     without_abstract = []
     Entrez.email = email
-    handle = Entrez.esearch(db="pubmed", term=doi, retmax=100)
+    handle = Entrez.esearch(db="pubmed", term=' OR '.join(dois), retmax=100)
     record = Entrez.read(handle)
     ids = record['IdList']
     handle.close()
