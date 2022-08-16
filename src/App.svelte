@@ -5,6 +5,8 @@
   import ListItem from "./ListItem.svelte";
   import CSV from "./CSV.svelte";
   let currentDoi = "";
+  let currentSubmitType = "abstract";
+  let currentIDType = "doi";
   let requestResponse = [];
   let items = [];
   let disableSubmit = false;
@@ -29,10 +31,16 @@
   function handleChangeDOI(value) {
     currentDoi = value;
   }
+  function handleChangeSubmitType(value) {
+    currentSubmitType = value;
+  }
+  function handleChangeIDType(value) {
+    currentIDType = value;
+  }
   async function handleClick() {
     disableSubmit = true;
     items = [];
-    await fetch(`http://127.0.0.1:9090/?doi=${encodeURIComponent(currentDoi)}`, { method: "GET" })
+    await fetch(`http://127.0.0.1:9090/${currentSubmitType}?${currentIDType}=${encodeURIComponent(currentDoi)}`, { method: "GET" })
       .then(function (response) {
         return response.json();
       })
@@ -52,7 +60,7 @@
 
 <main>
   <DarkMode bind:theme />
-  <Search onChangeDOI={handleChangeDOI} onClick={handleClick} {disableSubmit} />
+  <Search onChangeDOI={handleChangeDOI} onChangeIDType={handleChangeIDType}  iDType={currentIDType} submitType={currentSubmitType} onChangeSubmitType={handleChangeSubmitType} onClick={handleClick} {disableSubmit} />
   <CSV {items} />
   <List {items} />
 </main>
