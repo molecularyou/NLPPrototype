@@ -1,18 +1,26 @@
 <script>
   export let onChangeDOI;
+  export let onChangeIDType;
+  export let onChangeSubmitType;
   export let onClick;
   export let disableSubmit;
+  export let iDType;
+  export let submitType;
 </script>
 
 <div id="flex-container">
+  <select name="idtype" id="idtype" bind:value={iDType} on:change={(e) => onChangeIDType(e.target.value)}>
+    <option value="doi">DOI</option>
+    <option value="pmid">PMID</option>
+  </select>
   <input
     type="search"
-    id="doi"
-    name="doi"
+    id="id"
+    name="id"
     on:change={(e) => onChangeDOI(e.target.value)}
-    placeholder="DOI"
+    placeholder="ID"
   />
-  <select name="type" id="type">
+  <select name="type" id="type" bind:value={submitType} on:change={(e) => onChangeSubmitType(e.target.value)}>
     <option value="abstract">Abstract</option>
     <option value="paper">Paper</option>
   </select>

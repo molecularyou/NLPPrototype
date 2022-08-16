@@ -28,11 +28,15 @@ app = Flask(__name__)
 @app.route('/paper')
 def papers():
     doi = request.args.get('doi')
+    pmid = request.args.get('pmid')
     Entrez.email = email
-    handle = Entrez.esearch(db="pubmed", term=doi, retmax=100)
-    record = Entrez.read(handle)
-    id = record['IdList']
-    handle.close()
+    if(doi):
+        handle = Entrez.esearch(db="pubmed", term=doi, retmax=100)
+        record = Entrez.read(handle)
+        id = record['IdList']
+        handle.close()
+    else:
+        id = pmid
     handle = Entrez.elink(dbfrom="pubmed", db="pmc", linkname="pubmed_pmc", id=''.join(id), retmode="xml")
     id_return = Entrez.read(handle)
     handle.close()
@@ -64,17 +68,22 @@ def papers():
     })
     return '<br/>'.join(results)
 
-@app.route("/")
+@app.route("/abstract")
 def entrance():
     doi = request.args.get('doi')
-    dois = doi.split(',')
+    pmid = request.args.get('pmid')
+    print(pmid, flush=True)
+    dois = str(doi).split(',')
     abstract_dict = {}
     without_abstract = []
     Entrez.email = email
-    handle = Entrez.esearch(db="pubmed", term=' OR '.join(dois), retmax=100)
-    record = Entrez.read(handle)
-    ids = record['IdList']
-    handle.close()
+    if (doi):
+        handle = Entrez.esearch(db="pubmed", term=' OR '.join(dois), retmax=100)
+        record = Entrez.read(handle)
+        ids = record['IdList']
+        handle.close()
+    else:
+        ids = pmid.split(',')
     handle = Entrez.efetch(db="pubmed", id=','.join(ids),rettype="xml", retmode="text")
     records = Entrez.read(handle)
     for pubmed_article in records['PubmedArticle']:
