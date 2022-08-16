@@ -2201,10 +2201,10 @@ svelte-dark-mode@^2.1.0:
   resolved "https://registry.npmjs.org/svelte-dark-mode/-/svelte-dark-mode-2.1.0.tgz"
   integrity sha512-/QmIqWGwzcfE82FAMuHBlKFwudW7Vcos60Ii8j/mJZ0H6kGAXwL5EGlcc8voBJMJv/i0QZmhp5b1ZX/XKg9NJQ==
 
-svelte@^3.42.1:
-  version "3.42.1"
-  resolved "https://registry.npmjs.org/svelte/-/svelte-3.42.1.tgz"
-  integrity sha512-XtExLd2JAU3T7M2g/DkO3UNj/3n1WdTXrfL63OZ5nZq7nAqd9wQw+lR4Pv/wkVbrWbAIPfLDX47UjFdmnY+YtQ==
+svelte@^3.49.0:
+  version "3.49.0"
+  resolved "https://registry.npmjs.org/svelte/-/svelte-3.49.0.tgz"
+  integrity sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==
 
 temp-file@^3.4.0:
   version "3.4.0"
