@@ -44,5 +44,8 @@ $ yarn electron-dev # or npm run electron-dev
 $ yarn electron-pack # or npm run electron-pack
 ```
 
+## Usage
+Application defaults are to use a PMID and only perform analysis on an abstract. If this is sufficient enter the PMID in the ID box and click submit. If not, use the dropdowns to swap between PMID and DOI as well as abstract/paper. Once the analysis is done the results for each category will be surfaced. Clicking one of these results will highlight the text in the application and select it for exporting. Once all appropriate results have been clicked/selected click export to generate a csv file. Multiple IDs may be entered per query and must be separated with commas (ie 12857,123938).
+
 <h3>📋 License: </h3>
 Licensed under the <a href="https://github.com/soulehshaikh99/create-svelte-electron-app/blob/master/LICENSE">MIT License</a>.
